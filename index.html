@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slacker Supply Co. - Minimum Effort. Maximum Style.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --grunge-black: #1a1a1a;
+            --washed-denim: #4a5568;
+            --rust-orange: #c05621;
+            --off-white: #f7fafc;
+            --slate-gray: #718096;
+            --neon-pink: #ff6b9d;
+            --electric-lime: #9ae6b4;
+            --hot-magenta: #d53f8c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--grunge-black);
+            color: var(--off-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            border-bottom: 3px solid var(--rust-orange);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            background: var(--rust-orange);
+            text-align: center;
+            padding: 8px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            background: linear-gradient(45deg, var(--off-white), var(--slate-gray));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--rust-orange);
+            -webkit-text-fill-color: var(--rust-orange);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--rust-orange);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--neon-pink);
+            color: var(--grunge-black);
+            font-size: 0.7rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 107, 157, 0.03) 10px,
+                rgba(255, 107, 157, 0.03) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            letter-spacing: -4px;
+            text-shadow: 4px 4px 0px var(--rust-orange);
+        }
+
+        .tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--electric-lime);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--slate-gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--rust-orange);
+            color: var(--off-white);
+            padding: 1rem 3rem;
+            text-decoration: none;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            border: 3px solid var(--rust-orange);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--off-white);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: var(--rust-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(192, 86, 33, 0.3);
+        }
+
+        .products-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rust-orange), var(--neon-pink));
+        }
+
+        .section-header p {
+            color: var(--slate-gray);
+            font-family: 'Space Mono', monospace;
+            margin-top: 1.5rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #2d3748, #1a202c);
+            border: 2px solid transparent;
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .product-card:hover::before {
+            border-color: var(--rust-orange);
+            box-shadow: inset 0 0 20px rgba(192, 86, 33, 0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: 'SOLD OUT? WHATEVER.';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.3);
+            transform: rotate(-5deg);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--rust-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .product-description {
+            color: var(--slate-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--electric-lime);
+        }
+
+        .add-to-cart {
+            background: transparent;
+            border: 2px solid var(--rust-orange);
+            color: var(--rust-orange);
+            padding: 0.5rem 1.5rem;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .add-to-cart:hover {
+            background: var(--rust-orange);
+            color: var(--off-white);
+            transform: scale(1.05);
+        }
+
+        .add-to-cart:active {
+            transform: scale(0.95);
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            max-width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a202c, #2d3748);
+            z-index: 2001;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--rust-orange);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 2px solid var(--washed-denim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--off-white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-cart:hover {
+            transform: rotate(90deg);
+            color: var(--rust-orange);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 2rem;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: var(--slate-gray);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--washed-denim);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-family: 'Archivo Black', sans-serif;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--electric-lime);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--slate-gray);
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-decoration: underline;
+            margin-top: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .remove-item:hover {
+            color: var(--rust-orange);
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 2px solid var(--washed-denim);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--electric-lime);
+            color: var(--grunge-black);
+            border: none;
+            padding: 1rem;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            font-size: 1rem;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn:hover {
+            background: var(--neon-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+        }
+
+        .checkout-btn::after {
+            content: '→';
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+
+        .checkout-btn:hover::after {
+            transform: translateX(5px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--electric-lime);
+            color: var(--grunge-black);
+            padding: 1rem 2rem;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.3s;
+            border: 3px solid var(--grunge-black);
+            box-shadow: 5px 5px 0 var(--rust-orange);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        footer {
+            background: #0d1117;
+            padding: 3rem 2rem 2rem;
+            border-top: 3px solid var(--rust-orange);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Archivo Black', sans-serif;
+            margin-bottom: 1rem;
+            color: var(--rust-orange);
+            text-transform: uppercase;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--slate-gray);
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--electric-lime);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--washed-denim);
+            text-align: center;
+            color: var(--slate-gray);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--washed-denim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: var(--neon-pink);
+            background: var(--neon-pink);
+            color: var(--grunge-black);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-pink);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--electric-lime);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(78px, 9999px, 20px, 0); }
+            40% { clip: rect(15px, 9999px, 63px, 0); }
+            60% { clip: rect(89px, 9999px, 12px, 0); }
+            80% { clip: rect(45px, 9999px, 78px, 0); }
+            100% { clip: rect(62px, 9999px, 34px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 99px, 0); }
+            20% { clip: rect(12px, 9999px, 45px, 0); }
+            40% { clip: rect(87px, 9999px, 23px, 0); }
+            60% { clip: rect(34px, 9999px, 67px, 0); }
+            80% { clip: rect(56px, 9999px, 12px, 0); }
+            100% { clip: rect(23px, 9999px, 89px, 0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            Free shipping on orders over $50 • No rush, we get it
+        </div>
+        <nav>
+            <a href="#" class="logo">Slacker <span>Supply</span> Co.</a>
+            <ul class="nav-links">
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#lookbook">Lookbook</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="MINIMUM EFFORT">MINIMUM EFFORT</h1>
+            <div class="tagline">Maximum Style</div>
+            <p>Curated goods for the unmotivated overachiever. We tried to care about trends. This happened instead. Authentic Gen X vibes for people who remember when MTV played music.</p>
+            <a href="#shop" class="cta-button">Shop Now →</a>
+        </div>
+    </section>
+
+    <section class="products-section" id="shop">
+        <div class="section-header">
+            <h2>Fresh Drops</h2>
+            <p>Hard work is overrated. Good taste isn't.</p>
+        </div>
+        
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Stash</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-cart-icon">📭</div>
+                <p>Cart's empty. Like our ambitions.</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Checkout with Stripe</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Added to cart. Whatever.</div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Slacker Supply Co.</h4>
+                <p>Est. 1994 (in spirit)<br>
+                Minimum effort. Maximum style.<br>
+                For the generation that invented irony.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Help (As If)</h4>
+                <p><a href="#">Shipping Info</a><br>
+                <a href="#">Returns Policy</a><br>
+                <a href="#">FAQ</a><br>
+                <a href="#">Contact Us</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Find us on:</p>
+                <div class="social-links">
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                    <a href="#">TT</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Newsletter</h4>
+                <p>Get updates occasionally. When we feel like it.</p>
+                <p style="margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.8rem;">
+                    [Email signup coming soon]
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Slacker Supply Co. • Built with apathy and caffeine • All rights reserved (whatever that means)</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: "Vintage Walkman", category: "Tech", price: 89.00, emoji: "📼", description: "For when you need to block out the world with mixtapes." },
+            { id: 2, name: "Flannel Shirt", category: "Apparel", price: 45.00, emoji: "👔", description: "Seattle sound not included. Unisex and oversized." },
+            { id: 3, name: "CRT Monitor", category: "Tech", price: 120.00, emoji: "🖥️", description: "Gaming nostalgia with authentic scan lines." },
+            { id: 4, name: "Doc Martens", category: "Footwear", price: 150.00, emoji: "👢", description: "Break them in properly this time. Docs for days." },
+            { id: 5, name: "Polaroid Camera", category: "Tech", price: 75.00, emoji: "📷", description: "Instant gratification before Instagram existed." },
+            { id: 6, name: "Beanie", category: "Accessories", price: 25.00, emoji: "🧢", description: "Bad hair day cover-up or style statement? Yes." },
+            { id: 7, name: "Cassette Player", category: "Tech", price: 55.00, emoji: "📻", description: "Rewind with a pencil not included (but recommended)." },
+            { id: 8, name: "Band T-Shirt", category: "Apparel", price: 35.00, emoji: "👕", description: "Vintage tour shirt. You probably weren't there." }
+        ];
+
+        let cart = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-footer">
+                            <span class="product-price">$${product.price.toFixed(2)}</span>
+                            <button class="add-to-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartUI();
+            showToast(`Added ${product.name}. Whatever.`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = `$${totalPrice.toFixed(2)}`;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">📭</div>
+                        <p>Cart's empty. Like our ambitions.</p>
+                    </div>
+                `;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">${item.emoji}</div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
+                            <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleCart() {
+            document.getElementById('cartOverlay').classList.toggle('active');
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Cart is empty, genius.');
+                return;
+            }
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            showToast(`Redirecting to Stripe... Total: $${total.toFixed(2)}`);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
